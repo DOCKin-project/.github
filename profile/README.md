@@ -56,5 +56,11 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 ![](../image/스크린샷%202025-11-17%2022.55.09.png)
 
 **역할 분담**
-- **권효재**: Backend (SpringBoot)  
-- **박민정**: Android (Kotlin) / AR (Unity) / AIServer (FastAPI)
+## 👥 팀원 소개
+
+## 👥 팀원 소개
+
+| 프로필 | 이름/역할 | 상세 기여 내용 |
+| :---: | :--- | :--- |
+| <a href="https://github.com/권효재아이디"><img src="https://github.com/권효재아이디.png" width="100"></a> | **권효재** <br> `Backend` | |
+| <a href="https://github.com/박민정아이디"><img src="https://github.com/박민정아이디.png" width="100"></a> | **박민정** <br> `Frontend / AI` | |
