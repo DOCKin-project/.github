@@ -20,7 +20,7 @@
 1. [🔍 프로젝트 개요](#-프로젝트-개요)
 2. [🏗️ 전체 개발 구조](#️-전체-개발-구조)
 3. [📂 Directory Structure](#-directory-structure)
-4. [📖 API Documentation](#-api-documentation)
+4. [📂 API Documentation](#-api-documentation)
 5. [📂 Database](#-database)
 6. [🎥 시연 영상](#-시연-영상)
 7. [✨ 핵심 기능](#-핵심-기능)
