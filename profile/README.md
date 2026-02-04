@@ -83,10 +83,10 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 
 
 
-## 📖 API Documentation 
+## 📂 API Documentation 
 
 <details>
-<summary><b>🚀 상세 API 엔드포인트 보기 (Endpoints Specification)</b></summary>
+<summary><b>📂 상세 API 엔드포인트 보기 (Endpoints Specification)</b></summary>
 <br />
 
 ### 👤 인증 및 계정 (Auth)
@@ -176,21 +176,21 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 | **Deployment** | ![Vercel](https://img.shields.io/badge/VERCEL-000000?style=for-the-badge&logo=vercel&logoColor=white) |
 
 ### ⚙️ Back End
-| 역할 | 종류 |
-| :--- | :--- |
-| **Framework** | ![Spring Boot](https://img.shields.io/badge/SPRING_BOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) |
-| **Language** | ![Java](https://img.shields.io/badge/JAVA-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) |
-| **Database** | ![MySQL](https://img.shields.io/badge/MYSQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white) |
-| **Security** | ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white) ![Spring Security](https://img.shields.io/badge/SPRING_SECURITY-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white) |
-| **Infra/CI/CD** | ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Docker](https://img.shields.io/badge/DOCKER-2496ED?style=for-the-badge&logo=docker&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GITHUB_ACTIONS-2088FF?style=for-the-badge&logo=githubactions&logoColor=white) |
+| 역할               | 종류 |
+|:-----------------| :--- |
+| **Framework**    | ![Spring Boot](https://img.shields.io/badge/SPRING_BOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) |
+| **Language**     | ![Java](https://img.shields.io/badge/JAVA-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) |
+| **Database/ORM** | ![MySQL](https://img.shields.io/badge/MYSQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white) ![JPA](https://img.shields.io/badge/JPA-6DB33F?style=for-the-badge&logo=hibernate&logoColor=white)|
+| **Security**     | ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white) ![Spring Security](https://img.shields.io/badge/SPRING_SECURITY-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white) |
+| **Infra/CI/CD**  | ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Docker](https://img.shields.io/badge/DOCKER-2496ED?style=for-the-badge&logo=docker&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GITHUB_ACTIONS-2088FF?style=for-the-badge&logo=githubactions&logoColor=white) |
 
 ### 🤖 AI & Data
-| 역할 | 종류 |
-| :--- | :--- |
-| **Framework** | ![FastAPI](https://img.shields.io/badge/FASTAPI-005571?style=for-the-badge&logo=fastapi&logoColor=white) ![PyTorch](https://img.shields.io/badge/PYTORCH-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white) |
-| **Models** | ![Whisper](https://img.shields.io/badge/WHISPER-412991?style=for-the-badge&logo=openai&logoColor=white) ![NLLB](https://img.shields.io/badge/NLLB_TRANSLATION-4285F4?style=for-the-badge&logo=google-translate&logoColor=white) ![YOLOv11](https://img.shields.io/badge/YOLOv11-00FFFF?style=for-the-badge&logo=target&logoColor=black) |
-| **Pipeline** | ![Redis Queue](https://img.shields.io/badge/REDIS_QUEUE-DC382D?style=for-the-badge&logo=redis&logoColor=white) ![WebSocket](https://img.shields.io/badge/WEBSOCKET-010101?style=for-the-badge&logo=socket.io&logoColor=white) |
-| **Storage** | ![Amazon S3](https://img.shields.io/badge/AMAZON_S3-569A31?style=for-the-badge&logo=amazons3&logoColor=white) |
+| 역할 | 종류                                                                                                                                                                                                                             |
+| :--- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Framework** | ![FastAPI](https://img.shields.io/badge/FASTAPI-005571?style=for-the-badge&logo=fastapi&logoColor=white) ![PyTorch](https://img.shields.io/badge/PYTORCH-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)              |
+| **Models** | ![Whisper](https://img.shields.io/badge/WHISPER-412991?style=for-the-badge&logo=openai&logoColor=white) ![NLLB](https://img.shields.io/badge/NLLB_TRANSLATION-4285F4?style=for-the-badge&logo=google-translate&logoColor=white)|
+| **Pipeline** | ![Redis Queue](https://img.shields.io/badge/REDIS_QUEUE-DC382D?style=for-the-badge&logo=redis&logoColor=white) ![WebSocket](https://img.shields.io/badge/WEBSOCKET-010101?style=for-the-badge&logo=socket.io&logoColor=white)  |
+| **Storage** | ![Amazon S3](https://img.shields.io/badge/AMAZON_S3-569A31?style=for-the-badge&logo=amazons3&logoColor=white)                                                                                                                  |
 
 ---
 
