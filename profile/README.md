@@ -18,6 +18,38 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 ## 🏗️ 전체 개발 구조
 ![](../image/Slide%2016_9%20-%209.jpg)
 
+<details>
+<summary><b>📂 백엔드 상세 폴더 구조 보기 (Project Structure)</b></summary>
+<br />
+
+```bash
+[ DOCKin-spring ]
+├── .github/workflows       # CI/CD 자동화 (GitHub Actions)
+├── nginx/conf.d            # Nginx 리버스 프록시 및 서버 설정
+├── src/main/java/com/DOCKin
+│   ├── ai                  # 🤖 AI 연동 모듈 (FastAPI, STT, 번역 연동)
+│   │   ├── controller      # AI 기능 API 엔드포인트
+│   │   ├── dto             # 데이터 전송 객체
+│   │   ├── model           # AI 히스토리 및 로그 엔티티
+│   │   └── service         # FastAPI 서비스 연동 로직
+│   ├── attendance          # ⏰ 근태 관리 시스템 (출퇴근 기록)
+│   ├── chat                # 💬 실시간 채팅 (WebSocket/STOMP 기반)
+│   ├── member              # 👤 회원 및 인증 시스템 (JWT/Security)
+│   ├── global              # 🌐 글로벌 설정 (Security, WebSocket, Error Handling)
+│   │   ├── config          # 주요 Bean 및 프로토콜 설정
+│   │   ├── security        # JWT 기반 인증/인가 로직
+│   │   └── util            # 오디오 컨버터 등 공통 유틸리티
+│   ├── safetyCourse        # 🛡️ 안전 교육 관리 시스템
+│   └── worklog             # 📝 작업 일지 및 코멘트 시스템
+├── src/main/resources
+│   ├── application.properties  # 앱 환경 설정
+│   └── schema.sql              # DB 스키마 정의
+├── compose.yaml            # Docker 인프라 구성
+└── Dockerfile              # 백엔드 컨테이너 빌드 설정
+</details>
+
+
+
 ## 🎥 시연 영상 
 ![](../image/%ED%99%98%EC%8A%B9%EC%84%B0%EB%B0%95.gif)
 
