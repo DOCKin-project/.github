@@ -34,14 +34,14 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 
 ## 🛠️ 기술 스택
 
-| 분야 | 기술 |
-|------|------|
-| Mobile | Kotlin |
-| AR | Unity, ARCore |
-| AI | Whisper, NLLB, YOLOv11, OpenAI |
-| Backend | Spring Boot, FastAPI |
-| Infra | MySQL |
-| Offline | WorkManager, JobScheduler, Sync API |
+| 분야 | 핵심 기술 및 라이브러리 | 상세 구현 내용 |
+| :--- | :--- | :--- |
+| **Mobile** | ![React Native](https://img.shields.io/badge/React_Native-61DAFB?style=flat-square&logo=react&logoColor=black) ![Zustand](https://img.shields.io/badge/Zustand-443E38?style=flat-square) | `React Native` 기반 전환, `Zustand` & `React Query` 상태 관리, `Axios` 통신 |
+| **Real-time** | ![WebSocket](https://img.shields.io/badge/WebSocket-010101?style=flat-square&logo=socket.io) ![Firebase](https://img.shields.io/badge/FCM-FFCA28?style=flat-square&logo=firebase&logoColor=black) | 실시간 채팅(WS), 중요 이벤트 알림(FCM), JWT 연결 보안 |
+| **Backend** | ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat-square&logo=fastapi) | `Spring Boot` 메인 서버, `FastAPI` AI 전용 서버, `Swagger` API 명세 |
+| **AI & Queue** | ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white) ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai) | `Redis Queue` 기반 비동기 작업(STT/번역/챗봇), Job ID 폴링 구조 |
+| **Infra/DB** | ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker) ![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazon-aws) | `Docker` 가상환경, `AWS S3` 대용량 업로드, `Vercel` 프론트 배포 |
+| **Offline** | ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite) ![Storage](https://img.shields.io/badge/AsyncStorage-3DDC84?style=flat-square&logo=android) | `WatermelonDB/SQLite` 대용량 데이터 관리, `AsyncStorage` 경량 저장 |
 
 ---
 
