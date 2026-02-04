@@ -206,6 +206,6 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 | [**권효재**](https://github.com/Khyojae) | [**박민정**](https://github.com/emfpdlzj) |
 | :---: | :---: |
 | <a href="https://github.com/Khyojae"><img src="https://github.com/Khyojae.png" width="300"></a> | <a href="https://github.com/emfpdlzj"><img src="https://github.com/emfpdlzj.png" width="300"></a> |
-| **Backend & Infra** | **Frontend & AI  & Infra** |
+| **Backend & Infra** | **Frontend & AI** |
 
 ![](../image/team.png)
