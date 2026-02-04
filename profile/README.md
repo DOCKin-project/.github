@@ -21,18 +21,18 @@
 - 리팩토링 기간 : 2026. 01 ~ ing
 ---
 
-## 🔍 프로젝트 개요 (#-프로젝트-개요)
+## 🔍 프로젝트 개요 
 DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인식, 다국어 번역, 안전·근태 관리를 통합한 모바일 앱입니다.  
 실제 조선 현장에서 자주 발생하는 문제(언어 장벽, 보고 누락, 위치 혼선)를 기술로 해결하는 것을 목표로 합니다.
 
 ---
 
-## 🏗️ 전체 개발 구조 ](#️-전체-개발-구조)
+## 🏗️ 전체 개발 구조 ]
 ![](../image/Slide%2016_9%20-%209.jpg)
 
 
 
-## 📂 Directory Structure (#-directory-structure)
+## 📂 Directory Structure 
 
 <details>
 <summary><b>📂 백엔드 상세 폴더 구조 보기 (Project Structure)</b></summary>
@@ -68,7 +68,7 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 
 
 
-## 📖 API Documentation (#-api-documentation)
+## 📖 API Documentation 
 
 <details>
 <summary><b>🚀 상세 API 엔드포인트 보기 (Endpoints Specification)</b></summary>
@@ -124,13 +124,13 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 
 
 
-## 🎥 시연 영상 (#-시연-영상)
+## 🎥 시연 영상 
 <img src="../image/%ED%99%98%EC%8A%B9%EC%84%B0%EB%B0%95.gif" width="100%" alt="시연 영상" />
 
 
 ---
 
-## ✨ 핵심 기능 (#-핵심-기능)
+## ✨ 핵심 기능
 ![](../image/스크린샷%202025-11-17%2022.56.59.png)
 ![](../image/스크린샷%202025-11-17%2022.58.35.png)
 ![](../image/스크린샷%202025-11-17%2022.57.14.png)
@@ -139,7 +139,7 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 
 ---
 
-## 🛠️ 기술 스택 (#️-기술-스택)
+## 🛠️ 기술 스택 
 
 ### 📱 Front End
 | 역할 | 종류 |
@@ -169,14 +169,14 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 
 ---
 
-## 💻 주요 구현 코드 (#-주요-구현-코드)
+## 💻 주요 구현 코드 
 ![](../image/Slide%2016_9%20-%2046.jpg)
 ![](../image/Slide%2016_9%20-%2061.jpg)
 ![](../image/Slide%2016_9%20-%2062.jpg)
 
 ---
 
-## 👥 팀원 소개 (#-팀원-소개)
+## 👥 팀원 소개
 
 | [**권효재**](https://github.com/Khyojae) | [**박민정**](https://github.com/emfpdlzj) |
 | :---: | :---: |
