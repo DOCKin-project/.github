@@ -12,7 +12,7 @@
 
 <br />
 
-[**App Repo »**](https://github.com/orgs/DOCKin-project/repositories) &nbsp; | &nbsp; 
+[**App Repo »**](https://github.com/DOCKin-project/DOCKin-app) &nbsp; | &nbsp;
 [**Backend Repo »**](https://github.com/DOCKin-project/DOCKin-backend) &nbsp; | &nbsp; 
 [**AI Server Repo »**](https://github.com/DOCKin-project/DOCKin-aiserver)
 
