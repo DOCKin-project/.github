@@ -19,6 +19,8 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 ![](../image/Slide%2016_9%20-%209.jpg)
 
 <details>
+## 📂 Directory Structure
+
 <summary><b>📂 백엔드 상세 폴더 구조 보기 (Project Structure)</b></summary>
 <br />
 
