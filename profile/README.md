@@ -52,6 +52,60 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 ```
 </details>
 
+## 📖 API Documentation
+
+<details>
+<summary><b>🚀 상세 API 엔드포인트 보기 (Endpoints Specification)</b></summary>
+<br />
+
+### 👤 인증 및 계정 (Auth)
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/member/signup` | 회원가입 |
+| `POST` | `/member/login` | 로그인 및 JWT 토큰 발급 |
+| `POST` | `/member/logout` | 로그아웃 (토큰 무효화) |
+| `DELETE` | `/member/{userId}` | 회원 탈퇴 |
+
+### 🤖 AI 및 스마트 연동 (AI / STT)
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/work-logs/stt` | **음성 파일 기반 작업일지 생성 (STT)** |
+| `POST` | `/api/ai/rt-translate` | STT 실시간 번역 연동 |
+| `POST` | `/api/ai/translate/{logId}` | 작업일지 다국어 번역 요청 |
+| `POST` | `/api/ai/chatbot` | 현장 안전 가이드 챗봇 |
+
+### 📝 작업일지 및 댓글 (Work Logs & Comments)
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/work-logs` | 전체 작업일지 목록 조회 (Paging) |
+| `POST` | `/api/work-logs` | 일반 텍스트 기반 일지 생성 |
+| `GET` | `/api/work-logs/search` | 키워드 활용 게시물 검색 |
+| `POST` | `/api/work-logs/{logId}/comments` | 관리자 피드백(댓글) 작성 |
+| `PUT` | `/api/work-logs/{logId}` | 일지 내용 및 이미지 수정 |
+| `DELETE` | `/api/work-logs/{logId}` | 작업일지 삭제 |
+
+### 💬 실시간 소통 (Chat)
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/chat/room` | 협업 채팅방 신규 생성 |
+| `GET` | `/api/chat/rooms` | 참여 중인 모든 채팅방 목록 |
+| `GET` | `/api/chat/room/{roomId}/messages` | 채팅 내역 조회 (무한 스크롤) |
+| `DELETE` | `/api/chat/room/leave/{roomId}` | 채팅방 나가기 |
+
+### ⏰ 근태 및 안전 교육 (Attendance & Safety)
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/attendance/in` | 출근 기록 등록 (위치/시간) |
+| `POST` | `/api/attendance/out` | 퇴근 기록 등록 |
+| `GET` | `/api/safety/user/training/uncompleted` | 미이수 안전 교육 목록 확인 |
+| `PATCH` | `/api/safety/user/training/complete` | 교육 영상 이수 완료 처리 |
+
+</details>
+
+
+
+---
+
 
 
 ## 🎥 시연 영상 
@@ -84,7 +138,7 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 | :--- | :--- |
 | **Framework** | ![Spring Boot](https://img.shields.io/badge/SPRING_BOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) |
 | **Language** | ![Java](https://img.shields.io/badge/JAVA-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) |
-| **Database** | ![MySQL](https://img.shields.io/badge/MYSQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white) ![Redis](https://img.shields.io/badge/REDIS-DC382D?style=for-the-badge&logo=redis&logoColor=white) |
+| **Database** | ![MySQL](https://img.shields.io/badge/MYSQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white) |
 | **Security** | ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white) ![Spring Security](https://img.shields.io/badge/SPRING_SECURITY-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white) |
 | **Infra/CI/CD** | ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Docker](https://img.shields.io/badge/DOCKER-2496ED?style=for-the-badge&logo=docker&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GITHUB_ACTIONS-2088FF?style=for-the-badge&logo=githubactions&logoColor=white) |
 
