@@ -6,7 +6,7 @@
 ### 개발 기간
 - 기획 기간(예선): 2025.09 ~ 2025.10
 - 본선 개발 기간: 2025.10 ~ 2025.11
-
+- 리팩토링 기간 : 2026. 01 ~ ing
 ---
 
 ## 🔍 프로젝트 개요
@@ -34,14 +34,31 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 
 ## 🛠️ 기술 스택
 
-| 분야 | 핵심 기술 및 라이브러리 | 상세 구현 내용 |
-| :--- | :--- | :--- |
-| **Mobile** | ![React Native](https://img.shields.io/badge/React_Native-61DAFB?style=flat-square&logo=react&logoColor=black) ![Zustand](https://img.shields.io/badge/Zustand-443E38?style=flat-square) | `React Native` 기반 전환, `Zustand` & `React Query` 상태 관리, `Axios` 통신 |
-| **Real-time** | ![WebSocket](https://img.shields.io/badge/WebSocket-010101?style=flat-square&logo=socket.io) ![Firebase](https://img.shields.io/badge/FCM-FFCA28?style=flat-square&logo=firebase&logoColor=black) | 실시간 채팅(WS), 중요 이벤트 알림(FCM), JWT 연결 보안 |
-| **Backend** | ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat-square&logo=fastapi) | `Spring Boot` 메인 서버, `FastAPI` AI 전용 서버, `Swagger` API 명세 |
-| **AI & Queue** | ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white) ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai) | `Redis Queue` 기반 비동기 작업(STT/번역/챗봇), Job ID 폴링 구조 |
-| **Infra/DB** | ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker) ![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazon-aws) | `Docker` 가상환경, `AWS S3` 대용량 업로드, `Vercel` 프론트 배포 |
-| **Offline** | ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite) ![Storage](https://img.shields.io/badge/AsyncStorage-3DDC84?style=flat-square&logo=android) | `WatermelonDB/SQLite` 대용량 데이터 관리, `AsyncStorage` 경량 저장 |
+### 📱 Front End
+| 역할 | 종류 |
+| :--- | :--- |
+| **Framework** | ![React Native](https://img.shields.io/badge/REACT_NATIVE-61DAFB?style=for-the-badge&logo=react&logoColor=black) |
+| **State** | ![Zustand](https://img.shields.io/badge/ZUSTAND-443E38?style=for-the-badge&logo=react) ![React Query](https://img.shields.io/badge/REACT_QUERY-FF4154?style=for-the-badge&logo=react-query&logoColor=white) |
+| **Language** | ![JavaScript](https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) |
+| **Logic/Form** | ![Axios](https://img.shields.io/badge/AXIOS-5A29E4?style=for-the-badge&logo=axios&logoColor=white) ![React Hook Form](https://img.shields.io/badge/HOOK_FORM-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white) ![Zod](https://img.shields.io/badge/ZOD-3E67B1?style=for-the-badge&logo=zod&logoColor=white) |
+| **Deployment** | ![Vercel](https://img.shields.io/badge/VERCEL-000000?style=for-the-badge&logo=vercel&logoColor=white) |
+
+### ⚙️ Back End
+| 역할 | 종류 |
+| :--- | :--- |
+| **Framework** | ![Spring Boot](https://img.shields.io/badge/SPRING_BOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) |
+| **Language** | ![Java](https://img.shields.io/badge/JAVA-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) |
+| **Database** | ![MySQL](https://img.shields.io/badge/MYSQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white) ![Redis](https://img.shields.io/badge/REDIS-DC382D?style=for-the-badge&logo=redis&logoColor=white) |
+| **Security** | ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white) ![Spring Security](https://img.shields.io/badge/SPRING_SECURITY-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white) |
+| **Infra/CI/CD** | ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Docker](https://img.shields.io/badge/DOCKER-2496ED?style=for-the-badge&logo=docker&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GITHUB_ACTIONS-2088FF?style=for-the-badge&logo=githubactions&logoColor=white) |
+
+### 🤖 AI & Data
+| 역할 | 종류 |
+| :--- | :--- |
+| **Framework** | ![FastAPI](https://img.shields.io/badge/FASTAPI-005571?style=for-the-badge&logo=fastapi&logoColor=white) ![PyTorch](https://img.shields.io/badge/PYTORCH-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white) |
+| **Models** | ![Whisper](https://img.shields.io/badge/WHISPER-412991?style=for-the-badge&logo=openai&logoColor=white) ![NLLB](https://img.shields.io/badge/NLLB_TRANSLATION-4285F4?style=for-the-badge&logo=google-translate&logoColor=white) ![YOLOv11](https://img.shields.io/badge/YOLOv11-00FFFF?style=for-the-badge&logo=target&logoColor=black) |
+| **Pipeline** | ![Redis Queue](https://img.shields.io/badge/REDIS_QUEUE-DC382D?style=for-the-badge&logo=redis&logoColor=white) ![WebSocket](https://img.shields.io/badge/WEBSOCKET-010101?style=for-the-badge&logo=socket.io&logoColor=white) |
+| **Storage** | ![Amazon S3](https://img.shields.io/badge/AMAZON_S3-569A31?style=for-the-badge&logo=amazons3&logoColor=white) |
 
 ---
 
@@ -57,4 +74,4 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 | [**권효재**](https://github.com/Khyojae) | [**박민정**](https://github.com/emfpdlzj) |
 | :---: | :---: |
 | <a href="https://github.com/Khyojae"><img src="https://github.com/Khyojae.png" width="300"></a> | <a href="https://github.com/emfpdlzj"><img src="https://github.com/emfpdlzj.png" width="300"></a> |
-| **Backend & Infra** | **Frontend & AI  & Infra*** |
+| **Backend & Infra** | **Frontend & AI  & Infra** |
