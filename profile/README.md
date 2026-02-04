@@ -134,6 +134,16 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 
 </details>
 
+## 📂 Database 
+
+<details>
+<summary><b>📊 MySQL</b></summary>
+<br />
+
+> 추후 ERD 및 테이블 명세서가 이곳에 추가될 예정입니다.
+
+</details>
+
 
 
 ---
