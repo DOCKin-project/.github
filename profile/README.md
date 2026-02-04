@@ -2,6 +2,22 @@
 ## 2025 K-조선 해커톤 프로젝트 **대상**
 #### 산업 통상자원부 주최
 
+
+<div align="center">
+
+<img src="https://github.com/DOCKin-project.png" width="120" style="border-radius: 50%;" alt="DOCKin Logo" />
+
+# DOCKin
+**조선소 현장용 AR·AI 안전/업무 보조 앱** *2025 K-조선 해커톤 프로젝트 대상 (산업통상자원부 주최)*
+
+<br />
+
+[**App Repo »**](https://github.com/orgs/DOCKin-project/repositories) &nbsp; | &nbsp; 
+[**Backend Repo »**](https://github.com/DOCKin-project/DOCKin-backend) &nbsp; | &nbsp; 
+[**AI Server Repo »**](https://github.com/DOCKin-project/DOCKin-aiserver)
+
+</div>
+
 ## 📑 목차
 1. [🔍 프로젝트 개요](#-프로젝트-개요)
 2. [🏗️ 전체 개발 구조](#️-전체-개발-구조)
