@@ -151,6 +151,7 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 
 ## 🎥 시연 영상 
 <img src="../image/demo.gif" width="100%" alt="DOCKin Service Demo" />
+
 ---
 
 ## ✨ 핵심 기능
