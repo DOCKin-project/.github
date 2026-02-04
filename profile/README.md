@@ -156,10 +156,10 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 ---
 
 ## ✨ 핵심 기능
-![](../image/feature1.png)
-![](../image/feature2.png)
-![](../image/feature3.png)
-![](../image/feature4.png)
+![](../image/feature1.jpg)
+![](../image/feature2.jpg)
+![](../image/feature3.jpg)
+![](../image/feature4.jpg)
 
 
 ---
