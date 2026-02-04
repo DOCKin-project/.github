@@ -23,7 +23,7 @@
 2. [🏗️ 전체 개발 구조](#️-전체-개발-구조)
 3. [📂 Directory Structure](#-directory-structure)
 4. [📖 API Documentation](#-api-documentation)
-5. [🗄️ Database Design](#️-database-design)
+5. [📂 Database](#-database)
 6. [🎥 시연 영상](#-시연-영상)
 7. [✨ 핵심 기능](#-핵심-기능)
 8. [🛠️ 기술 스택](#️-기술-스택)
