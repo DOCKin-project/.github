@@ -6,7 +6,7 @@
 <img src="https://github.com/DOCKin-project.png" width="120" style="border-radius: 50%;" alt="DOCKin Logo" />
 
 # DOCKin
-**조선소 현장용 AR·AI 안전/업무 보조 앱** *2025 K-조선 해커톤 프로젝트 대상 (산업통상자원부 주최)*
+**조선소 현장용 AI 안전/업무 보조 앱** *2025 K-조선 해커톤 프로젝트 대상 (산업통상자원부 주최)*
 
 <br />
 
