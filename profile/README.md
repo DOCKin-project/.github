@@ -170,7 +170,552 @@ DOCKin은 조선소 근로자를 위한 AI 음성 인식, 다국어 번역, 안�
 <summary><b>📂 PostgreSQL 17 + pgvector</b></summary>
 <br />
 
-> 추후 ERD 및 테이블 명세서가 이곳에 추가될 예정입니다.
+스키마는 **Flyway**(`src/main/resources/db/migration`)가 전부 관리하며,
+애플리케이션 기동 시 `ddl-auto=validate`로 엔티티와의 일치를 검증한다.
+어긋나면 기동이 실패하므로 스키마 변경은 반드시 마이그레이션을 거친다.
+
+> 아래 ERD와 명세는 **실행 중인 DB에서 생성**한 것이다. 손으로 옮겨 적으면
+> 그 순간부터 낡기 시작하므로 그렇게 하지 않았다.
+> (전체 24개 테이블 중 Flyway 이력 테이블과 벤치마크용 테이블은 제외)
+
+**`document_chunks`에 외래키가 없는 것은 의도한 설계다.** 벡터 검색은 권한을
+`WHERE`에서 미리 거르는 **선필터**로 구현했고, 그러려면 소유자와 공개 범위가
+청크 행에 함께 있어야 한다. 그래서 `owner_user_id`·`visibility`를 비정규화해
+들고 있다. 후필터(검색 후 걸러내기)는 "내가 못 보는 문서가 존재한다"는 사실이
+결과 개수로 새어 나가므로 택하지 않았다.
+
+#### 회원 · 인증
+
+```mermaid
+erDiagram
+    users ||--o{ authority : "권한"
+    users {
+        varchar user_id PK
+        timestamp created_at
+        varchar language_code
+        varchar name
+        varchar password
+        integer remaining_leave_days
+        varchar role
+        varchar ship_yard_area
+        boolean tts_enabled
+        varchar work_shift
+    }
+    authority {
+        bigint log_id PK
+        smallint authority
+        varchar member_id FK
+    }
+    refresh_token {
+        varchar user_id PK
+        varchar token
+    }
+```
+
+<details>
+<summary><b>회원 · 인증 — 컬럼 명세</b></summary>
+
+
+**`users`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `user_id` | varchar(50) | N | PK |  |
+| `created_at` | timestamp | N |  |  |
+| `language_code` | varchar(255) | N |  |  |
+| `name` | varchar(10) | N |  |  |
+| `password` | varchar(256) | N |  |  |
+| `remaining_leave_days` | integer | N |  |  |
+| `role` | varchar(255) | N |  |  |
+| `ship_yard_area` | varchar(100) | N |  |  |
+| `tts_enabled` | boolean | N |  |  |
+| `work_shift` | varchar(255) | Y |  |  |
+
+**`authority`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `log_id` | bigint | N | PK |  |
+| `authority` | smallint | Y |  |  |
+| `member_id` | varchar(50) | Y | FK | `users.user_id` |
+
+**`refresh_token`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `user_id` | varchar(255) | N | PK |  |
+| `token` | varchar(512) | N |  |  |
+
+</details>
+
+#### 근태 · 휴가
+
+```mermaid
+erDiagram
+    users ||--o{ absence_requests : "신청/결재"
+    users ||--o{ attendance : "출퇴근"
+    attendance {
+        bigint id PK
+        timestamp clock_in_time
+        timestamp clock_out_time
+        varchar in_location
+        varchar out_location
+        varchar status
+        varchar total_work_time
+        date work_date
+        varchar user_id FK
+    }
+    work_calendar {
+        date calendar_date PK
+        varchar day_type
+        varchar description
+    }
+    absence_requests {
+        integer request_id PK
+        varchar decision_comment
+        varchar document_url
+        date end_date
+        timestamp processed_at
+        varchar reason
+        timestamp requested_at
+        date start_date
+        varchar status
+        varchar request_type
+        varchar user_id FK
+        varchar processed_by FK
+    }
+```
+
+<details>
+<summary><b>근태 · 휴가 — 컬럼 명세</b></summary>
+
+
+**`attendance`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | bigint | N | PK |  |
+| `clock_in_time` | timestamp | Y |  |  |
+| `clock_out_time` | timestamp | Y |  |  |
+| `in_location` | varchar(255) | Y |  |  |
+| `out_location` | varchar(255) | Y |  |  |
+| `status` | varchar(20) | N |  |  |
+| `total_work_time` | varchar(255) | Y |  |  |
+| `work_date` | date | N |  |  |
+| `user_id` | varchar(50) | N | FK | `users.user_id` |
+
+**`work_calendar`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `calendar_date` | date | N | PK |  |
+| `day_type` | varchar(20) | N |  |  |
+| `description` | varchar(100) | Y |  |  |
+
+**`absence_requests`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `request_id` | integer | N | PK |  |
+| `decision_comment` | varchar(255) | Y |  |  |
+| `document_url` | varchar(255) | Y |  |  |
+| `end_date` | date | N |  |  |
+| `processed_at` | timestamp | Y |  |  |
+| `reason` | varchar(255) | N |  |  |
+| `requested_at` | timestamp | Y |  |  |
+| `start_date` | date | N |  |  |
+| `status` | varchar(20) | N |  |  |
+| `request_type` | varchar(20) | N |  |  |
+| `user_id` | varchar(50) | N | FK | `users.user_id` |
+| `processed_by` | varchar(50) | Y | FK | `users.user_id` |
+
+</details>
+
+#### 작업일지 · 설비
+
+```mermaid
+erDiagram
+    work_logs ||--o{ log_images : "첨부(구)"
+    work_logs ||--o{ work_log_comments : "댓글"
+    users ||--o{ work_log_comments : "작성자"
+    work_logs ||--o{ work_log_images : "첨부"
+    work_logs ||--o{ work_log_translations : "번역본"
+    equipment ||--o{ work_logs : "대상 설비"
+    users ||--o{ work_logs : "작성"
+    work_logs {
+        bigint log_id PK
+        varchar audio_file_url
+        timestamp created_at
+        text log_text
+        varchar title
+        timestamp updated_at
+        bigint equipment_id FK
+        varchar user_id FK
+    }
+    work_log_translations {
+        bigint translation_id PK
+        timestamp created_at
+        varchar language_code
+        text original_text
+        text original_title
+        varchar trace_id
+        text translated_text
+        text translated_title
+        timestamp updated_at
+        varchar user_id
+        bigint log_id FK
+    }
+    work_log_comments {
+        bigint comment_id PK
+        text content
+        timestamp created_at
+        timestamp updated_at
+        bigint log_id FK
+        varchar user_id FK
+    }
+    work_log_images {
+        bigint id PK
+        varchar image_url
+        bigint work_log_id FK
+    }
+    log_images {
+        bigint imgae_id PK
+        varchar image_url
+        bigint log_id FK
+    }
+    equipment {
+        bigint equipment_id PK
+        varchar name
+        varchar nfc_tag
+        varchar qr_code
+    }
+```
+
+<details>
+<summary><b>작업일지 · 설비 — 컬럼 명세</b></summary>
+
+
+**`work_logs`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `log_id` | bigint | N | PK |  |
+| `audio_file_url` | varchar(255) | Y |  |  |
+| `created_at` | timestamp | N |  |  |
+| `log_text` | text | N |  |  |
+| `title` | varchar(256) | N |  |  |
+| `updated_at` | timestamp | Y |  |  |
+| `equipment_id` | bigint | Y | FK | `equipment.equipment_id` |
+| `user_id` | varchar(50) | Y | FK | `users.user_id` |
+
+**`work_log_translations`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `translation_id` | bigint | N | PK |  |
+| `created_at` | timestamp | Y |  |  |
+| `language_code` | varchar(10) | Y |  |  |
+| `original_text` | text | Y |  |  |
+| `original_title` | text | Y |  |  |
+| `trace_id` | varchar(255) | Y |  |  |
+| `translated_text` | text | Y |  |  |
+| `translated_title` | text | Y |  |  |
+| `updated_at` | timestamp | Y |  |  |
+| `user_id` | varchar(255) | Y |  |  |
+| `log_id` | bigint | Y | FK | `work_logs.log_id` |
+
+**`work_log_comments`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `comment_id` | bigint | N | PK |  |
+| `content` | text | N |  |  |
+| `created_at` | timestamp | Y |  |  |
+| `updated_at` | timestamp | Y |  |  |
+| `log_id` | bigint | N | FK | `work_logs.log_id` |
+| `user_id` | varchar(50) | N | FK | `users.user_id` |
+
+**`work_log_images`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | bigint | N | PK |  |
+| `image_url` | varchar(255) | Y |  |  |
+| `work_log_id` | bigint | Y | FK | `work_logs.log_id` |
+
+**`log_images`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `imgae_id` | bigint | N | PK |  |
+| `image_url` | varchar(255) | Y |  |  |
+| `log_id` | bigint | Y | FK | `work_logs.log_id` |
+
+**`equipment`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `equipment_id` | bigint | N | PK |  |
+| `name` | varchar(100) | N |  |  |
+| `nfc_tag` | varchar(100) | N |  |  |
+| `qr_code` | varchar(100) | N |  |  |
+
+</details>
+
+#### RAG 벡터 검색
+
+```mermaid
+erDiagram
+    document_chunks {
+        bigint chunk_id PK
+        integer chunk_index
+        text content
+        varchar content_hash
+        timestamp created_at
+        vector embedding
+        integer embedding_dim
+        varchar embedding_model
+        varchar language_code
+        varchar owner_user_id
+        bigint source_id
+        varchar source_type
+        timestamp updated_at
+        varchar visibility
+    }
+    chat_history {
+        bigint id PK
+        timestamp created_at
+        text reply
+        varchar retrieval_mode
+        text source_chunk_ids
+        varchar trace_id
+        varchar user_id
+        text user_query
+    }
+```
+
+<details>
+<summary><b>RAG 벡터 검색 — 컬럼 명세</b></summary>
+
+
+**`document_chunks`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `chunk_id` | bigint | N | PK |  |
+| `chunk_index` | integer | N |  |  |
+| `content` | text | N |  |  |
+| `content_hash` | varchar(64) | N |  |  |
+| `created_at` | timestamp | Y |  |  |
+| `embedding` | vector | N |  |  |
+| `embedding_dim` | integer | N |  |  |
+| `embedding_model` | varchar(64) | N |  |  |
+| `language_code` | varchar(10) | Y |  |  |
+| `owner_user_id` | varchar(50) | Y |  |  |
+| `source_id` | bigint | N |  |  |
+| `source_type` | varchar(32) | N |  |  |
+| `updated_at` | timestamp | Y |  |  |
+| `visibility` | varchar(16) | N |  |  |
+
+**`chat_history`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | bigint | N | PK |  |
+| `created_at` | timestamp | Y |  |  |
+| `reply` | text | Y |  |  |
+| `retrieval_mode` | varchar(16) | Y |  |  |
+| `source_chunk_ids` | text | Y |  |  |
+| `trace_id` | varchar(255) | Y |  |  |
+| `user_id` | varchar(255) | Y |  |  |
+| `user_query` | text | Y |  |  |
+
+</details>
+
+#### 실시간 채팅
+
+```mermaid
+erDiagram
+    chat_rooms ||--o{ chat_members : "참여"
+    users ||--o{ chat_members : "참여자"
+    chat_rooms ||--o{ chat_messages : "메시지"
+    chat_rooms {
+        integer room_id PK
+        timestamp created_at
+        varchar creator_id
+        boolean is_group
+        timestamp last_message_at
+        varchar last_message_content
+        varchar room_name
+    }
+    chat_members {
+        integer id PK
+        timestamp joined_at
+        timestamp last_read_time
+        integer room_id FK
+        varchar user_id FK
+    }
+    chat_messages {
+        bigint message_id PK
+        text content
+        varchar file_url
+        varchar message_type
+        varchar sender_id
+        timestamp sent_at
+        integer room_id FK
+    }
+```
+
+<details>
+<summary><b>실시간 채팅 — 컬럼 명세</b></summary>
+
+
+**`chat_rooms`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `room_id` | integer | N | PK |  |
+| `created_at` | timestamp | Y |  |  |
+| `creator_id` | varchar(255) | Y |  |  |
+| `is_group` | boolean | Y |  |  |
+| `last_message_at` | timestamp | Y |  |  |
+| `last_message_content` | varchar(255) | Y |  |  |
+| `room_name` | varchar(255) | Y |  |  |
+
+**`chat_members`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | integer | N | PK |  |
+| `joined_at` | timestamp | Y |  |  |
+| `last_read_time` | timestamp | Y |  |  |
+| `room_id` | integer | N | FK | `chat_rooms.room_id` |
+| `user_id` | varchar(50) | N | FK | `users.user_id` |
+
+**`chat_messages`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `message_id` | bigint | N | PK |  |
+| `content` | text | N |  |  |
+| `file_url` | varchar(255) | Y |  |  |
+| `message_type` | varchar(255) | N |  |  |
+| `sender_id` | varchar(255) | N |  |  |
+| `sent_at` | timestamp | Y |  |  |
+| `room_id` | integer | N | FK | `chat_rooms.room_id` |
+
+</details>
+
+#### 안전교육 · 체크리스트
+
+```mermaid
+erDiagram
+    checklists ||--o{ checklist_items : "항목"
+    checklist_items ||--o{ checklist_results : "점검 결과"
+    users ||--o{ checklist_results : "점검자"
+    equipment ||--o{ checklists : "점검 대상"
+    safety_courses ||--o{ safety_enrollments : "과정"
+    users ||--o{ safety_enrollments : "수강"
+    safety_courses {
+        integer course_id PK
+        timestamp created_at
+        varchar created_by
+        text description
+        integer duration_minutes
+        varchar material_url
+        varchar title
+        varchar video_url
+    }
+    safety_enrollments {
+        integer enrollment_id PK
+        timestamp completion_date
+        timestamp enrolled_at
+        varchar status
+        integer course_id FK
+        varchar user_id FK
+    }
+    checklists {
+        integer checklist_id PK
+        timestamp created_at
+        varchar phase
+        varchar title
+        timestamp updated_at
+        bigint equipment_id FK
+    }
+    checklist_items {
+        integer item_id PK
+        varchar content
+        integer sequence
+        integer checklist_id FK
+    }
+    checklist_results {
+        integer result_id PK
+        timestamp checked_at
+        boolean is_checked
+        integer checklist_item_id FK
+        varchar user_id FK
+    }
+```
+
+<details>
+<summary><b>안전교육 · 체크리스트 — 컬럼 명세</b></summary>
+
+
+**`safety_courses`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `course_id` | integer | N | PK |  |
+| `created_at` | timestamp | N |  |  |
+| `created_by` | varchar(50) | Y |  |  |
+| `description` | text | Y |  |  |
+| `duration_minutes` | integer | Y |  |  |
+| `material_url` | varchar(255) | Y |  |  |
+| `title` | varchar(255) | N |  |  |
+| `video_url` | varchar(255) | N |  |  |
+
+**`safety_enrollments`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `enrollment_id` | integer | N | PK |  |
+| `completion_date` | timestamp | Y |  |  |
+| `enrolled_at` | timestamp | Y |  |  |
+| `status` | varchar(255) | N |  |  |
+| `course_id` | integer | Y | FK | `safety_courses.course_id` |
+| `user_id` | varchar(50) | N | FK | `users.user_id` |
+
+**`checklists`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `checklist_id` | integer | N | PK |  |
+| `created_at` | timestamp | Y |  |  |
+| `phase` | varchar(10) | N |  |  |
+| `title` | varchar(100) | N |  |  |
+| `updated_at` | timestamp | Y |  |  |
+| `equipment_id` | bigint | N | FK | `equipment.equipment_id` |
+
+**`checklist_items`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `item_id` | integer | N | PK |  |
+| `content` | varchar(255) | N |  |  |
+| `sequence` | integer | N |  |  |
+| `checklist_id` | integer | N | FK | `checklists.checklist_id` |
+
+**`checklist_results`**
+
+| 컬럼 | 타입 | NULL | 키 | 참조 |
+| :--- | :--- | :--- | :--- | :--- |
+| `result_id` | integer | N | PK |  |
+| `checked_at` | timestamp | N |  |  |
+| `is_checked` | boolean | N |  |  |
+| `checklist_item_id` | integer | N | FK | `checklist_items.item_id` |
+| `user_id` | varchar(50) | N | FK | `users.user_id` |
+
+</details>
 
 </details>
 
