@@ -43,7 +43,7 @@ DOCKin은 조선소 근로자를 위한 AI 음성 인식, 다국어 번역, 안�
 ---
 
 ## 🏗️ 전체 개발 구조
-![](../image/architecture.jpg)
+![](../image/architecture1.jpg)
 
 
 
